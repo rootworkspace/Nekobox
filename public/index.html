@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nekobox</title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        @font-face {
+            font-family: 'NekoFont';
+            src: url('/fonts/Japanese-3017.ttf') format('truetype');
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <div class="header">
+            <h1>nekobox</h1>
+            <p class="tagline">simple file sharing~!</p>
+        </div>
+
+        <div class="main">
+            <div class="upload-box" id="uploadBox">
+                <div class="upload-icon">📁</div>
+                <p>drop file or click here</p>
+                <p class="upload-note">max 100mb • direct links</p>
+                <input type="file" id="fileInput">
+            </div>
+
+            <div class="files" id="filesList">
+                <!-- files appear here -->
+            </div>
+        </div>
+
+        <div class="chibi-corner">
+            <img src="/chibi" id="chibiImage">
+        </div>
+
+    </div>
+
+    <script src="/upload.js"></script>
+</body>
+
+</html>
