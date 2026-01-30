@@ -82,7 +82,7 @@ app.get('/chibi', (req, res) => {
         const randomPick = images[Math.floor(Math.random() * images.length)];
         const filePath = path.join(CHIBIS_PATH, randomPick);
 
-        res.setHeader('Content-Type', 'image/png'); // APNG/PNG for animated images
+        res.setHeader('Content-Type', 'image/webp');
         res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
         res.setHeader('Pragma', 'no-cache');
         res.setHeader('Expires', '0');
