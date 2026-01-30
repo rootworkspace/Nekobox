@@ -65,25 +65,29 @@ app.use('/s', express.static('storage'));
 app.use('/chibis', express.static('chibis'));
 app.use('/fonts', express.static('fonts'));
 
-// Chibiiis :3
+// Chibiiis~ :3
 app.get('/chibi', (req, res) => {
     fs.readdir(CHIBIS_PATH, (err, files) => {
         if (err || !files.length) {
-            return res.redirect('/chibis/default.png');
+            const defaultPath = path.join(CHIBIS_PATH, 'default.png');
+            return res.sendFile(defaultPath);
         }
 
         const images = files.filter(f => /\.(png|jpg|jpeg|gif|webp)$/i.test(f));
         if (images.length === 0) {
-            return res.redirect('/chibis/default.png');
+            const defaultPath = path.join(CHIBIS_PATH, 'default.png');
+            return res.sendFile(defaultPath);
         }
 
         const randomPick = images[Math.floor(Math.random() * images.length)];
+        const filePath = path.join(CHIBIS_PATH, randomPick);
 
+        res.setHeader('Content-Type', 'image/png'); // APNG/PNG for animated images
         res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
         res.setHeader('Pragma', 'no-cache');
         res.setHeader('Expires', '0');
 
-        res.redirect(`/chibis/${randomPick}`);
+        res.sendFile(filePath);
     });
 });
 
@@ -94,7 +98,7 @@ app.post('/upload', (req, res) => {
             const message = err.code === 'LIMIT_FILE_SIZE' ? 'File too big' : 'Upload failed';
             return res.status(500).json({ error: message });
         }
-        
+
         if (!req.file) {
             return res.status(400).json({ error: 'No file received' });
         }
